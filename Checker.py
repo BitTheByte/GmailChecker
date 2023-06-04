@@ -125,16 +125,15 @@ def show_status(action):
 		print s.format(SUCCESS_LOGIN,FAILED_LOGIN)
 
 def main(email,password):
-		global FAILED_LOGIN
-		global SUCCESS_LOGIN
-		SessionManager 	= requests.Session()
-		identifier   	= G_identifier(email,SessionManager)
-		logged 			= login(identifier,password,SessionManager)
-		if not logged:
-			FAILED_LOGIN += 1
-		else:
-			SUCCESS_LOGIN += 1
-			ValidEmails.append(email)
+	global FAILED_LOGIN
+	global SUCCESS_LOGIN
+	SessionManager 	= requests.Session()
+	identifier   	= G_identifier(email,SessionManager)
+	if logged := login(identifier, password, SessionManager):
+		SUCCESS_LOGIN += 1
+		ValidEmails.append(email)
+	else:
+		FAILED_LOGIN += 1
 try:
 	show_status("START")
 	ThreadPoolSize_custom = raw_input("[*] Choose number of threads [default = {}] [press Enter to use defaults]: ".format(ThreadPoolSize))
